@@ -20,7 +20,7 @@ app.get("/", (req, res) => {
       })
       .catch(err => reject("Scrape Failed"));
   });
-  console.log("run");
+  console.log("runn");
   Promise.resolve(erpScraper)
     .then(data => {
       console.log(data.captcha.secure_url, data.pattern.secure_url);
