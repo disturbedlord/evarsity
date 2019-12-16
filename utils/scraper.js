@@ -9,6 +9,7 @@ cloudinary.config({
 
 const scrapeData = async id => {
   const browser = await puppeteer.launch({
+    args: ["--no-sandbox", "--disable-setuid-sandbox"],
     headless: false,
     defaultViewport: null
   });
