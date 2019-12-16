@@ -18,7 +18,7 @@ app.get("/", (req, res) => {
         console.log(this.browser);
         resolve(data);
       })
-      .catch(err => reject("Scrape Failed"));
+      .catch(err => reject("Scrape Failed", err));
   });
   console.log("runn");
   Promise.resolve(erpScraper)
