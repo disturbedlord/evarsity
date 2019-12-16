@@ -15,7 +15,7 @@ const scrapeData = async id => {
       "--disable-dev-shm-usage",
       "--single-process"
     ],
-    headless: false,
+    headless: true,
     defaultViewport: null
   });
   const page = await browser.newPage();
@@ -35,21 +35,6 @@ const scrapeData = async id => {
   // await page.waitFor(10000);
 
   // // click the Login Button
-  // await page.click(
-  //   "#loginform1 > table > tbody > tr:nth-child(7) > td > input.btn"
-  // );
-
-  // const forceLogin = page.$("#btnNew");
-  // //TODO: work on the Force Login Issue;
-  // if (await page.$("#btnNew")) {
-  //   const forceLogin = await page.$("#btnNew");
-  //   await forceLogin.click();
-  // } else {
-  //   const attendance = await page.waitForSelector("#dm0m0i2tdT");
-  //   await attendance.click();
-  //   const attendance1 = await page.waitForSelector("#dm0m2i2tdT");
-  //   await attendance1.click();
-  // }
 };
 
 const getCaptcha = async (val, page) => {
@@ -137,6 +122,24 @@ const insertData = async (id, pass, code, browser, page) => {
     "/html/body/div[1]/table/tbody/tr[2]/td[2]/div/table/tbody/tr/td/form/table/tbody/tr[6]/td/input"
   );
   await captcha_code[0].type(code);
+
+  await page.click(
+    "#loginform1 > table > tbody > tr:nth-child(7) > td > input.btn"
+  );
+
+  // const forceLogin = page.$("#btnNew");
+  //TODO: work on the Force Login Issue;
+  if (await page.$("#btnNew")) {
+    const forceLogin = await page.$("#btnNew");
+    await forceLogin.click();
+    console.log("force");
+  } else {
+    console.log("else");
+    const attendance = await page.waitForSelector("#dm0m0i2tdT");
+    await attendance.click();
+    const attendance1 = await page.waitForSelector("#dm0m2i2tdT");
+    await attendance1.click();
+  }
 };
 
 module.exports.scrapeData = scrapeData;
