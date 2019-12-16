@@ -40,7 +40,7 @@ const scrapeData = async id => {
 const getCaptcha = async (val, page) => {
   if (val == 0) {
     const captcha = await page.$("#cpimg1");
-
+    await page.waitFor(1000);
     let shotResult = await captcha
       .screenshot()
       .then(result => {
@@ -64,6 +64,8 @@ const getCaptcha = async (val, page) => {
   } else {
     try {
       const captcha_pattern = await page.$("#sdivcolor");
+      await page.waitFor(1500);
+
       let shotResult = await captcha_pattern
         .screenshot()
         .then(result => {
@@ -99,7 +101,10 @@ function cloundinaryPromise(shotResult, cloudinary_options) {
           console.error("Upload to cloudinary failed: ", error);
           rej(error);
         }
-        console.log(cloudinary_result.url);
+        console.log(cloudinary_result);
+        console.log(cloudinary.width);
+        console.log(cloudinary.height);
+
         res(cloudinary_result);
       })
       .end(shotResult);
